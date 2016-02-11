@@ -6,18 +6,13 @@
     <MinClientVersion>2.8.6</MinClientVersion>
     <!-- This is the .pkgproj for the "future" build which is not on the same release cadence as corefx -->
     <PreReleaseLabel>beta</PreReleaseLabel>
+    <NuspecSuffix>-future</NuspecSuffix>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\System.Reflection.Metadata.csproj">
       <AdditionalProperties>future=true</AdditionalProperties>
       <SupportedFramework>net45;netcore45;dnxcore50;wpa81</SupportedFramework>
-    </ProjectReference>
-    <!-- Support targets that were supported in previous package versions -->
-    <ProjectReference Include="..\..\src\System.Reflection.Metadata.csproj">
-      <AdditionalProperties>future=true</AdditionalProperties>
-      <PackageTargetPath>lib/portable-net45+win8</PackageTargetPath>
-      <PackageTargetFramework>portable-net45+win8</PackageTargetFramework>
     </ProjectReference>
     <Dependency Include="System.Collections.Immutable">
       <TargetFramework>portable-net45+win8</TargetFramework>
