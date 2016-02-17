@@ -236,9 +236,10 @@ branchList.each { branchName ->
             // Archive the results
             Utilities.addArchival(newBuildJob, "bin/build.pack,bin/osGroup.AnyCPU.${configurationGroup}/**,bin/ref/**,bin/packages/**,msbuild.log")
 
+            // Use Server GC for Ubuntu/OSX Debug PR build & test
             def serverGCString = ''
                      
-            if (os == 'Ubuntu' && configurationGroup == 'Debug' && isPR){
+            if ((os == 'Ubuntu' || os == 'OSX') && configurationGroup == 'Release' && isPR){
                 serverGCString = '--useServerGC'
             }
             
@@ -353,8 +354,8 @@ branchList.each { branchName ->
                 // Set PR trigger.
                 // Set of OS's that work currently. 
                 if (os in ['OSX', 'Ubuntu', 'OpenSUSE13.2', 'CentOS7.1']) {
-                    // Temporary: Disk is corrupted around CentOS7.1 release directory, removing from automatic runs for now
-                    if (os != 'CentOS7.1' || configurationGroup != 'Release') {
+                    // TODO #6070: Temporarily disabled due to failing globalization tests on OpenSUSE.
+                    if (os != 'OpenSUSE13.2') {
                         Utilities.addGithubPRTrigger(newFlowJob, "Innerloop ${os} ${configurationGroup} Build and Test")
                     }
                 }
@@ -363,11 +364,8 @@ branchList.each { branchName ->
                 }
             }
             else {
-                // Temporary: Disk is corrupted around freebsd_debug_bld directory, removing from automatic runs for now
-                if (os != 'FreeBSD' || configurationGroup != 'Debug') {
-                    // Set a push trigger
-                    Utilities.addGithubPushTrigger(newFlowJob)
-                }
+                // Set a push trigger
+                Utilities.addGithubPushTrigger(newFlowJob)
             }
         }
     }
