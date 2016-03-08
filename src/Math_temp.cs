@@ -23,8 +23,8 @@ namespace System_temp
         //-------- Required by the different RoundExact overloads to deal with the given types
         private static int[] roundPower10Int = new int[] 
 	    { 
-		      1, 10, 100, 1000, 10000, 100000, 
-		      1000000, 10000000, 100000000, 1000000000
+		    1, 10, 100, 1000, 10000, 100000, 
+		    1000000, 10000000, 100000000, 1000000000
 	    };
         
         private static long[] roundPower10Long = new long[] 
@@ -187,7 +187,7 @@ namespace System_temp
                 : RoundExactAfter(d, digits, type));
         }
         
-        public static double RoundExactBefore(double d, int digits, RoundType type)
+        private static double RoundExactBefore(double d, int digits, RoundType type)
         {
             int length = GetIntegerLength(d);
             if (digits == 0) digits = length;
@@ -195,7 +195,7 @@ namespace System_temp
             return (length - digits < 0 ? d : RoundExactInternal(d, type, length, digits));
         }
 
-        public static double RoundExactAfter(double d, int digits, RoundType type)
+        private static double RoundExactAfter(double d, int digits, RoundType type)
         {
             double d2 = GetDecimalPart(d, digits);
             int length2 = GetIntegerLength(d2);
