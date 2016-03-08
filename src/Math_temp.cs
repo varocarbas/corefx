@@ -22,29 +22,29 @@ namespace System_temp
 
         //-------- Required by the different RoundExact overloads to deal with the given types
         private static int[] roundPower10Int = new int[] 
-	      { 
-		        1, 10, 100, 1000, 10000, 100000, 
-		        1000000, 10000000, 100000000, 1000000000
-	      };
+	    { 
+		      1, 10, 100, 1000, 10000, 100000, 
+		      1000000, 10000000, 100000000, 1000000000
+	    };
         
         private static long[] roundPower10Long = new long[] 
-	      { 
-		        1, 10, 100, 1000, 10000, 100000, 1000000, 10000000,	100000000, 1000000000, 
-			      10000000000, 100000000000, 1000000000000, 10000000000000, 100000000000000, 
+	    { 
+		    1, 10, 100, 1000, 10000, 100000, 1000000, 10000000,	100000000, 1000000000, 
+		    10000000000, 100000000000, 1000000000000, 10000000000000, 100000000000000, 
             1000000000000000, 10000000000000000, 100000000000000000, 1000000000000000000
-	      };
+	    };
 
         private static decimal[] roundPower10Decimal = new decimal[] 
-	      { 
+	    { 
             1E0m, 1E1m, 1E2m, 1E3m, 1E4m, 1E5m, 1E6m, 1E7m, 
             1E8m, 1E9m, 1E10m, 1E11m, 1E12m, 1E13m, 1E14m, 
             1E15m, 1E16m, 1E17m, 1E18m, 1E19m, 1E20m, 1E21m,
             1E22m, 1E23m, 1E24m, 1E25m, 1E26m, 1E27m, 1E28m
-	      };
+	    };
         //------------------------------
 
-		    //Used in all the RoundExact overloads to determine the type of rounding.
-		    //The "Midpoint" items apply the given rule when the last digit lies in the middle (equivalently to Math.Round).
+		//Used in all the RoundExact overloads to determine the type of rounding.
+		//The "Midpoint" items apply the given rule when the last digit lies in the middle (equivalently to Math.Round).
         //The "Always" items apply the given rule in any case. 
         public enum RoundType 
         { 
@@ -56,7 +56,7 @@ namespace System_temp
             AlwaysToZero 
         };
         
-		    //Used in the decimal overloads (types decimal & double) of RoundExact to determine the part to be rounded.
+		//Used in the decimal overloads (types decimal & double) of RoundExact to determine the part to be rounded.
         public enum RoundSeparator 
         { 
             AfterDecimalSeparator, 
@@ -92,7 +92,7 @@ namespace System_temp
         {
             if ((digits < 0) || (digits > maxRoundingDigits)) return d;
             //throw new ArgumentOutOfRangeException("digits", Environment.GetResourceString("ArgumentOutOfRange_RoundingDigits"));
-			      //Contract.EndContractBlock();
+			//Contract.EndContractBlock();
 
             if (d == 0m) return 0m;
 
@@ -105,7 +105,7 @@ namespace System_temp
                     : RoundExactAfter(d, digits, type));
         }
 
-        public static decimal RoundExactBefore(decimal d, int digits, RoundType type)
+        private static decimal RoundExactBefore(decimal d, int digits, RoundType type)
         {
             int length = GetIntegerLength(d);
             if (digits == 0) digits = length;
@@ -113,7 +113,7 @@ namespace System_temp
             return (length - digits < 0 ? d : RoundExactInternal(d, type, length, digits));
         }
 
-        public static decimal RoundExactAfter(decimal d, int digits, RoundType type)
+        private static decimal RoundExactAfter(decimal d, int digits, RoundType type)
         {
             decimal d2 = GetDecimalPart(d, digits); 
             int length2 = GetIntegerLength(d2);
